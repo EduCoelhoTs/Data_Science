@@ -1,36 +1,28 @@
-print("")
-print("Exercicio 8")
+import pandas as pd
+import numpy as np
 
+df = pd.read_csv("./ds_salaries.csv")
 
-def createFruitList(fruitList, fruitToGet):
-    for fruit in fruitList:
-        if fruit == fruitToGet:
-            print(fruitToGet + " existe na lista")
+print("Exercicio 11 - Ler os 10,20,50 primeiros registros")
 
+print(df.head(10))
+print(df.head(20))
+print(df.head(50))
 
-createFruitList(["banana", "maça", "uva", "pera"], "pera")
+print("Exercico 12 - Ler os 10,20,50 ultimos registros")
 
+print(df.tail(10))
+print(df.tail(20))
+print(df.tail(50))
 
-print("")
-print("Exercicio 9")
+print("Exercico 13")
 
+group = df.groupby(["company_location", "company_size"])["salary_in_usd"].mean()
+print(group)
 
-def multElements(element_list):
-    resp = list(map(lambda x: x * 2, element_list))
-    print(resp)
+print("Exercico 14")
 
-
-multElements((1, 2, 3, 4))
-
-print("")
-print("Exercicio 10")
-
-
-def printTemperature(temperature):
-    const_temperature = 40
-    while const_temperature > temperature:
-        print("Temperatura: " + str(const_temperature))
-        const_temperature -= 1
-
-
-printTemperature(35)
+pivot = df.pivot_table(
+    index="job_title", columns="work_year", values="salary_in_usd", aggfunc="mean"
+)
+print(pivot)
